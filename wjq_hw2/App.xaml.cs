@@ -68,10 +68,10 @@ namespace wjq_hw2
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: 从之前挂起的应用程序加载状态
-                    //if (ApplicationData.Current.LocalSettings.Values.ContainsKey("NavigationState"))
-                    //{
-                    //    rootFrame.SetNavigationState((string)ApplicationData.Current.LocalSettings.Values["NavigationState"]);
-                    //}
+                    if (ApplicationData.Current.LocalSettings.Values.ContainsKey("NavigationState"))
+                    {
+                        rootFrame.SetNavigationState((string)ApplicationData.Current.LocalSettings.Values["NavigationState"]);
+                    }
                 }
 
                 // 将框架放在当前窗口中
@@ -110,9 +110,9 @@ namespace wjq_hw2
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
-            //Frame rootf = Window.Current.Content as Frame;
+            Frame rootf = Window.Current.Content as Frame;
 
-            //ApplicationData.Current.LocalSettings.Values["NavigationState"] = rootf.GetNavigationState();
+            ApplicationData.Current.LocalSettings.Values["NavigationState"] = rootf.GetNavigationState();
             deferral.Complete();
         }
     }
