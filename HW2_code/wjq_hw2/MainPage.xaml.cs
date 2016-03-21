@@ -68,21 +68,24 @@ namespace wjq_hw2 {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
             }
-
-            if (ApplicationData.Current.LocalSettings.Values["ifchecked1"] as string == "true") {
-                line.Visibility = Visibility.Visible;
-                check_box1.IsChecked = true;
-            } else {
-                line.Visibility = Visibility.Collapsed;
-                check_box1.IsChecked = false;
+            module vm = e.Parameter as module;
+            if (vm != null) {
+                if (vm.ifchecked1 == "true") {
+                    line.Visibility = Visibility.Visible;
+                    check_box1.IsChecked = true;
+                } else {
+                    line.Visibility = Visibility.Collapsed;
+                    check_box1.IsChecked = false;
+                }
+                if (vm.ifchecked2 == "true") {
+                    line1.Visibility = Visibility.Visible;
+                    check_box2.IsChecked = true;
+                } else {
+                    line1.Visibility = Visibility.Collapsed;
+                    check_box2.IsChecked = false;
+                }
             }
-            if (ApplicationData.Current.LocalSettings.Values["ifchecked2"] as string == "true") {
-                line1.Visibility = Visibility.Visible;
-                check_box2.IsChecked = true;
-            } else {
-                line.Visibility = Visibility.Collapsed;
-                check_box2.IsChecked = false;
-            }
+            
         }
 
         private void add_line(object sender, RoutedEventArgs e) {
