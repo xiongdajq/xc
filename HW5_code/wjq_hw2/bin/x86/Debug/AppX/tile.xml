@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tile>
+  <visual>
+    <binding template="TileSmall">
+      <image src="Assets\bike.jpeg">
+        
+      </image>
+    </binding>
+    <binding template="TileMedium">
+      
+      <text hint-align ="center" hint-wrap="false">
+        title
+      </text>
+
+     
+      <text hint-ailgn="center" hint-wrap="false">
+        details
+      </text>
+    </binding>
+    <binding template="TileWide">
+      <text hint-align ="center" hint-wrap="false">
+        title
+      </text>
+      <image src="Assets\bike.jpeg" hint-align="center">
+
+      </image>
+      <text hint-ailgn="center" hint-wrap="false">
+        details
+      </text>
+    </binding>
+  </visual>
+</tile>
