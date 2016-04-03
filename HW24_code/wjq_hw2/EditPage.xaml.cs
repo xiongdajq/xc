@@ -112,7 +112,6 @@ namespace wjq_hw2
                 var db = App.conn;
                 try
                 {
-
                     using (var custstmt = db.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES (?, ?, ?, ?)"))
                     {
                         custstmt.Bind(1, view_Module.All_items.Last().id);

@@ -141,6 +141,21 @@ namespace wjq_hw2
             {
                 view_Module.add_item(tb_t.Text, tb_d.Text, dp.Date.DateTime, right_image.Source);
 
+                var db = App.conn;
+                try
+                {
+                    using (var custstmt = db.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES (?, ?, ?, ?)"))
+                    {
+                        custstmt.Bind(1, view_Module.All_items.Last().id);
+                        custstmt.Bind(2, tb_t.Text);
+                        custstmt.Bind(3, tb_d.Text);
+                        custstmt.Bind(4, dp.Date.DateTime.ToString("u"));
+                        custstmt.Step();
+                    }
+                }
+                catch (Exception ex)
+                {     // TODO: Handle error
+                }
 
                 Frame.Navigate(typeof(MainPage), view_Module);
             }
@@ -182,16 +197,19 @@ namespace wjq_hw2
             //{
             //    statement.Bind(1, seach_block.Text);
 
-            using (var statement = App.conn.Prepare("SELECT Id, Title, Detail, Date FROM Item"))  //WHERE Id LIKE '%'+?+'%' OR Title LIKE '%'+?+'%' OR Detail LIKE '%'+?+'%' OR Date LIKE '%'+?+'%'
+            string sql_q = "SELECT Id, Title, Detail, Date FROM Item WHERE Id LIKE '%" + seach_block.Text + "%' OR Title LIKE '%" + seach_block.Text + "%' OR Detail LIKE '%" + seach_block.Text + "%' OR Date LIKE '%" + seach_block.Text + "%'";
+            using (var statement = App.conn.Prepare(sql_q))  
             {
+                //"SELECT Id, Title, Detail, Date FROM Item WHERE Id LIKE '%kk%' OR Title LIKE \'%?%\' OR Detail LIKE \'%?%\' OR Date LIKE \'%?%\'"
                 //statement.Bind(4, seach_block.Text);
                 //statement.Bind(1, seach_block.Text);
                 //statement.Bind(2, seach_block.Text);
                 //statement.Bind(3, seach_block.Text);
-                int i = 0;
-                while (SQLiteResult.DONE == statement.Step())
+                
+               // '1996-01-01'
+                while (SQLiteResult.ROW == statement.Step())
                 {
-                    i++;
+                   
                     var modu = new module.module();
                     modu.id = (string)statement[0];
                     modu.title = (string)statement[1];
@@ -205,13 +223,16 @@ namespace wjq_hw2
                     //    //        City = (string)statement[2],
                     //    //        Contact = (string)statement[3]
                     //    //    };
+                    
                 }
 
             }
+            string context = null;
             for (int i = 0; i < search_items.Count; i++)
             {
-                var message = new MessageDialog("id: " + Search_items[i].id + " title: " + Search_items[i].title + " detail: " + Search_items[i].detail + " date: " + Search_items[i].date.ToString() + "\n").ShowAsync();
+                context += "id: " + Search_items[i].id + "; title: " + Search_items[i].title + "; detail: " + Search_items[i].detail + "; date: " + Search_items[i].date.ToString() + "\n";
             }
+            var massage = new MessageDialog(context).ShowAsync();
         }
     }
 

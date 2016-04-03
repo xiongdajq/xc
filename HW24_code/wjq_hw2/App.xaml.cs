@@ -106,6 +106,22 @@ namespace wjq_hw2
 
 
             LoadDatabase();
+            try
+            {
+                string da = DateTime.Today.ToString("u");
+                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test_id', 'wjq', 'people', da)"))
+                {
+                    custstmt.Step();
+                }
+                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test1_id', 'wjq1', 'people1', da)"))
+                {
+                    custstmt.Step();
+                }
+            }
+            catch (Exception ex)
+            {     // TODO: Handle error
+            }
+
             Window.Current.Activate();
         }
 
@@ -132,7 +148,7 @@ namespace wjq_hw2
             //TODO: 保存应用程序状态并停止任何后台活动
             Frame rootf = Window.Current.Content as Frame;
 
-            ApplicationData.Current.LocalSettings.Values["NavigationState"] = rootf.GetNavigationState();
+            //ApplicationData.Current.LocalSettings.Values["NavigationState"] = rootf.GetNavigationState();
             deferral.Complete();
         }
     }
