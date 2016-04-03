@@ -109,6 +109,23 @@ namespace wjq_hw2
             } else
             {
                 view_Module.add_item(title_block.Text, detail_block.Text, date.Date.DateTime, images.Source);
+                var db = App.conn;
+                try
+                {
+
+                    using (var custstmt = db.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES (?, ?, ?, ?)"))
+                    {
+                        custstmt.Bind(1, view_Module.All_items.Last().id);
+                        custstmt.Bind(2, title_block.Text);
+                        custstmt.Bind(3, detail_block.Text);
+                        custstmt.Bind(4, date.Date.DateTime.ToString("u"));
+                        custstmt.Step();
+                    }
+                }
+                catch (Exception ex)
+                {     // TODO: Handle error
+                }
+
                 Frame.Navigate(typeof(MainPage), view_Module);
             }
            

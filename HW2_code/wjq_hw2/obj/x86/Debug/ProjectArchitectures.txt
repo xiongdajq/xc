@@ -1,1 +1,1 @@
-C:\Users\Cindy\Documents\Visual Studio 2015\Projects\xc\HW2_code\wjq_hw2\wjq_hw2.csproj;x86
+F:\xc\HW2_code\wjq_hw2\wjq_hw2.csproj;x86

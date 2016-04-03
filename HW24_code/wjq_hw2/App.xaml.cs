@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLitePCL;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace wjq_hw2
     /// </summary>
     sealed partial class App : Application
     {
+        static public SQLiteConnection conn;
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。
@@ -44,7 +46,22 @@ namespace wjq_hw2
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         /// 
 
-       
+        public void LoadDatabase()
+        {     // Get a reference to the SQLite database 
+            conn = new SQLiteConnection("sqlitepcldemo.db");
+            string sql = @"CREATE TABLE IF NOT EXISTS
+                            Item (Id      VARCHAR(140) PRIMARY KEY  NOT NULL,
+                                      Title    VARCHAR( 140 ),
+                                      Detail    VARCHAR( 140 ),
+                                      Date VARCHAR( 140 )
+                         );";
+            using (var statement = conn.Prepare(sql))
+            {
+                statement.Step();
+            }
+        } 
+
+
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
@@ -86,6 +103,9 @@ namespace wjq_hw2
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
             // 确保当前窗口处于活动状态
+
+
+            LoadDatabase();
             Window.Current.Activate();
         }
 

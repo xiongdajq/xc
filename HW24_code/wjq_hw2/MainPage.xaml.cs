@@ -17,6 +17,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.UI.Popups;
+using System.Collections.ObjectModel;
+using SQLitePCL;
 
 
 
@@ -29,7 +31,7 @@ namespace wjq_hw2
     /// </summary>
     public sealed partial class MainPage : Page
     {
-       
+
 
         public object SuspensionManager { get; private set; }
 
@@ -60,13 +62,13 @@ namespace wjq_hw2
             //view_Module.select_item.date = DateTime.Today;
             Frame rootF = Window.Current.Content as Frame;
             if (rootF.ActualWidth < 700)
-                Frame.Navigate(typeof(EditPage),view_Module);
+                Frame.Navigate(typeof(EditPage), view_Module);
         }
         view_module.view_module view_Module
         {
             get; set;
         }
-       
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -92,10 +94,10 @@ namespace wjq_hw2
         }
 
 
-        
+
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
             view_Module.Select_item = (module.module)(e.ClickedItem);
             Frame rootF = Window.Current.Content as Frame;
             if (rootF.ActualWidth >= 700)
@@ -106,10 +108,11 @@ namespace wjq_hw2
                 right_image.Source = view_Module.select_item.image;
                 createButton.Visibility = Visibility.Collapsed;
                 updateButton.Visibility = Visibility.Visible;
-               
-            } else
+
+            }
+            else
             {
-               
+
                 Frame.Navigate(typeof(EditPage), view_Module);
             }
         }
@@ -170,17 +173,58 @@ namespace wjq_hw2
             tb_d.Text = "";
             dp.Date = DateTime.Today;
         }
+        private ObservableCollection<module.module> search_items = new ObservableCollection<module.module>();
+        public ObservableCollection<module.module> Search_items { get { return this.search_items; } }
+        private void serch_Click(object sender, RoutedEventArgs e)
+        {
 
-        //private void edit(object sender, RoutedEventArgs e)
-        //{
-        //    //view_Module.Select_item = (module.module)(e.);
+            //using (var statement = App.conn.Prepare("SELECT Id, Title, Detail, Date FROM Item WHERE Title LIKE '%'+?+'%'"))
+            //{
+            //    statement.Bind(1, seach_block.Text);
 
-        //    Frame.Navigate(typeof(EditPage), view_Module);
-        //}
+            using (var statement = App.conn.Prepare("SELECT Id, Title, Detail, Date FROM Item"))  //WHERE Id LIKE '%'+?+'%' OR Title LIKE '%'+?+'%' OR Detail LIKE '%'+?+'%' OR Date LIKE '%'+?+'%'
+            {
+                //statement.Bind(4, seach_block.Text);
+                //statement.Bind(1, seach_block.Text);
+                //statement.Bind(2, seach_block.Text);
+                //statement.Bind(3, seach_block.Text);
+                int i = 0;
+                while (SQLiteResult.DONE == statement.Step())
+                {
+                    i++;
+                    var modu = new module.module();
+                    modu.id = (string)statement[0];
+                    modu.title = (string)statement[1];
+                    modu.detail = (string)statement[2];
+                    modu.date = DateTime.Parse((string)statement[3]);
+                    search_items.Add(modu);
+                    //    //     = new Customer()
+                    //    //{
+                    //    //    Id = (long)statement[0],
+                    //    //        Name = (string)statement[1],
+                    //    //        City = (string)statement[2],
+                    //    //        Contact = (string)statement[3]
+                    //    //    };
+                }
 
-        //private void delete(object sender, RoutedEventArgs e)
-        //{
-
-        //}
+            }
+            for (int i = 0; i < search_items.Count; i++)
+            {
+                var message = new MessageDialog("id: " + Search_items[i].id + " title: " + Search_items[i].title + " detail: " + Search_items[i].detail + " date: " + Search_items[i].date.ToString() + "\n").ShowAsync();
+            }
+        }
     }
+
+    //private void edit(object sender, RoutedEventArgs e)
+    //{
+    //    //view_Module.Select_item = (module.module)(e.);
+
+    //    Frame.Navigate(typeof(EditPage), view_Module);
+    //}
+
+    //private void delete(object sender, RoutedEventArgs e)
+    //{
+
+    //}
 }
+

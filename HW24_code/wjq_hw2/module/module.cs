@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media;
 
 namespace wjq_hw2.module
 {
-    class module : INotifyPropertyChanged
+    public class module : INotifyPropertyChanged
     {
         public ImageSource image;
         public ImageSource images { set
@@ -23,7 +23,7 @@ namespace wjq_hw2.module
 
         }
         bool? ifcompletee;
-        public string id { get; }
+        public string id { get; set; }
         public string title
         {
             get;
@@ -52,6 +52,7 @@ namespace wjq_hw2.module
             PropertyChanged(this, new PropertyChangedEventArgs(property_name));
         }
         public DateTime date { set; get; }
+        public module() { }
         public module (string title, string detail, DateTime date, ImageSource images)
         {
             this.title = title;

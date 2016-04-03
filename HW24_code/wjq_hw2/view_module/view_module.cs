@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace wjq_hw2.view_module
 {
-    class view_module
+    public class view_module
     {
         public view_module()
         {
