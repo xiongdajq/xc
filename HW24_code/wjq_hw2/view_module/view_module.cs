@@ -39,7 +39,7 @@ namespace wjq_hw2.view_module
             select_item.detail = detail;
             select_item.date = date;
             select_item.images = im;
-            this.select_item = null;
+            //this.select_item = null;
         }
     }
 }

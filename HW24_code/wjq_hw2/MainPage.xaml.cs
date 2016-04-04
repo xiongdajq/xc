@@ -178,6 +178,17 @@ namespace wjq_hw2
                 //view_Module.select_item.detail = detail_block.Text;
                 //view_Module.select_item.date = date;
                 view_Module.update_item(tb_t.Text, tb_d.Text, dp.Date.DateTime, right_image.Source);
+
+                using (var custstmt = App.conn.Prepare("UPDATE Item SET Title = ?, Detail = ?, Date = ? WHERE Id=?"))
+                {         // NOTE when using anonymous parameters the first has an index of 1, not 0.        
+                    custstmt.Bind(1, tb_t.Text);
+                    custstmt.Bind(2, tb_d.Text);
+                    custstmt.Bind(3, dp.Date.DateTime.ToString("u"));
+                    custstmt.Bind(4, view_Module.select_item.id);
+                    custstmt.Step();
+                }
+
+
                 Frame.Navigate(typeof(MainPage), view_Module);
             }
         }
@@ -232,7 +243,14 @@ namespace wjq_hw2
             {
                 context += "id: " + Search_items[i].id + "; title: " + Search_items[i].title + "; detail: " + Search_items[i].detail + "; date: " + Search_items[i].date.ToString() + "\n";
             }
-            var massage = new MessageDialog(context).ShowAsync();
+            if (context != null)
+            {
+                var massage = new MessageDialog(context).ShowAsync();
+            } else
+            {
+                var message = new MessageDialog("null").ShowAsync(); 
+            }
+                
         }
     }
 

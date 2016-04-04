@@ -109,11 +109,11 @@ namespace wjq_hw2
             try
             {
                 string da = DateTime.Today.ToString("u");
-                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test_id', 'wjq', 'people', da)"))
+                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test_id', 'wjq', 'people', '" +da + "')"))
                 {
                     custstmt.Step();
                 }
-                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test1_id', 'wjq1', 'people1', da)"))
+                using (var custstmt = conn.Prepare("INSERT INTO Item (Id, Title, Detail, Date) VALUES ('test1_id', 'wjq1', 'people1','" + da + "')"))
                 {
                     custstmt.Step();
                 }

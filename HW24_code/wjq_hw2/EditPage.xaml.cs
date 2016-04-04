@@ -187,7 +187,18 @@ namespace wjq_hw2
                 //view_Module.select_item.detail = detail_block.Text;
                 //view_Module.select_item.date = date;
                 view_Module.update_item(title_block.Text, detail_block.Text, date.Date.DateTime, images.Source);
-                Frame.Navigate(typeof(MainPage), view_Module);
+
+
+                using (var custstmt = App.conn.Prepare("UPDATE Item SET Title = ?, Detail = ?, Date = ? WHERE Id=?"))
+                {         // NOTE when using anonymous parameters the first has an index of 1, not 0.        
+                    custstmt.Bind(1, title_block.Text);
+                    custstmt.Bind(2, detail_block.Text);
+                    custstmt.Bind(3, date.Date.DateTime.ToString("u"));
+                    custstmt.Bind(4, view_Module.Select_item.id);
+                    custstmt.Step();
+                }
+
+                    Frame.Navigate(typeof(MainPage), view_Module);
             }
         }
 
@@ -195,12 +206,18 @@ namespace wjq_hw2
         {
             if (view_Module.Select_item != null)
             {
+                using (var statement = App.conn.Prepare("DELETE FROM Item WHERE Id = ?"))
+                {
+                    statement.Bind(1, view_Module.select_item.id);
+                    statement.Step();
+                }
+
                 view_Module.remove_item(view_Module.select_item.id);
-                Frame.Navigate(typeof(MainPage),view_Module);
+                Frame.Navigate(typeof(MainPage), view_Module);
             }
         }
 
-        
+
     }
 }
 

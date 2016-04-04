@@ -49,9 +49,9 @@
 
         <TextBlock x:Name ="textBlocks" Text="Todos" Grid.Row="0" Margin="10,30,0,10" FontFamily="Tekton Pro" FontSize="32" Foreground="#FF0D0E0E" LineHeight="16" TextAlignment="Justify" FontStyle="Italic" TextReadingOrder="UseFlowDirection" TextWrapping="Wrap"/>
         <StackPanel Margin="0,0.333,0,10" Grid.RowSpan="1" Grid.Row="1">
-            <TextBlock Text="Please enter the key point" Height="18" Margin="0,0,459,0" Width="200"/>
-            <TextBox Height="20" x:Name="seach_block" Margin="116,0,120,0" Width="300"/>
-            <Button x:Name="serch" Content="Seach" HorizontalAlignment="Center" Height="30" Click="serch_Click" Margin="291,0,290,0" VerticalContentAlignment="Bottom" Width="80"/>
+            <TextBlock Text="Please enter the key point" Height="25" Margin="0,0,100,10" Width="200" HorizontalAlignment="Center"/>
+            <TextBox Height="20" x:Name="seach_block" Margin="0" Width="300" HorizontalAlignment="Center"/>
+            <Button x:Name="serch" Content="Search" HorizontalAlignment="Center" Height="30" Click="serch_Click" Margin="0,0,0,0" VerticalContentAlignment="Bottom" Width="80"/>
         </StackPanel>
         <Grid Grid.Row ="2" >
             <Grid.ColumnDefinitions>
