@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using System.Net;
+using Windows.UI.ViewManagement;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -31,6 +32,7 @@ namespace weather
         public MainPage()
         {
             this.InitializeComponent();
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(700, 800));
         }
         private async void GetPosition(string number)
         {

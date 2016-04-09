@@ -7,20 +7,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="42" Margin="10,36,0,0" TextWrapping="Wrap" Text="请输入要查询的手机号码：" VerticalAlignment="Top" Width="212"/>
-        <TextBox x:Name="PhoneNumber" HorizontalAlignment="Left" Height="0" Margin="100,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251"/>
-        <Button x:Name="button" Content="Search" HorizontalAlignment="Left" Height="32" Margin="439,63,0,0" VerticalAlignment="Top" Width="122" Click="search_click"/>
-        <RelativePanel >
-                <TextBlock x:Name="textBlock2"  Height="28" Margin="48,209,0,0" TextWrapping="Wrap" Text="运营商：" VerticalAlignment="Top" Width="78" RelativePanel.AlignLeftWith="textBlock3"/>
-                <TextBlock x:Name="supplier"  Height="28" Margin="0, 30" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="80" RelativePanel.Below="textBlock2" RelativePanel.AlignHorizontalCenterWith="textBlock2"/>   
-                <TextBlock x:Name="textBlock3" Height="28" Margin="0, 210" TextWrapping="Wrap" Text="省份："  Width="78" HorizontalAlignment="Center"/>
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/star.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+            <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="textBlock" Grid.Row="0" HorizontalAlignment="Left" Height="42" Margin="10,36,0,0" TextWrapping="Wrap" Text="请输入要查询的手机号码：" VerticalAlignment="Top" Width="212" Foreground="#FFF7F5F5"/>
+        <TextBox x:Name="PhoneNumber" Grid.Row="1" HorizontalAlignment="Center" Height="0" Margin="0,15, 100, 0" Text="" VerticalAlignment="Top" Width="251" Foreground="#FFFBFAFA"/>
+        <Button x:Name="button" Content="Search" Grid.Row="1" HorizontalAlignment="Right" Height="32" Margin="0,15,50, 0" VerticalAlignment="Top" Width="122" Click="search_click" Background="#FF737B7F" Foreground="#FFF1EFE9"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
-        </RelativePanel>
-        <TextBlock x:Name="province" HorizontalAlignment="Center" Height="28" Margin="252,280,251,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="80"/>
-        <TextBlock x:Name="city" HorizontalAlignment="Left" Height="28" Margin="439,276,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="80"/>
-        <TextBlock x:Name="result" HorizontalAlignment="Left" Height="36" Margin="10,168,0,0" TextWrapping="Wrap" Text="查询结果：" VerticalAlignment="Top" Width="116" SelectionChanged="textBlock1_SelectionChanged"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="28" Margin="439,209,0,0" TextWrapping="Wrap" Text="城市：" VerticalAlignment="Top" Width="78"/>
+            <TextBlock x:Name="result" Grid.Row="0" HorizontalAlignment="Center" Height="36" Text="查询结果：" VerticalAlignment="Bottom" Width="116" Margin="0,0,0,-50" Foreground="#FFFBF6F6"/>
+            <TextBlock x:Name="textBlock2" Grid.Row="1" Grid.Column="0" Height="28"  TextWrapping="Wrap" Text="运营商：" VerticalAlignment="Center" Width="78" Foreground="#FFEEE9E9"/>
+            <TextBlock x:Name="supplier" Grid.Row="2" Grid.Column="0" Height="28"  Text="TextBlock" VerticalAlignment="Top" Width="80" Foreground="#FFF3F0F0"/>
 
+            <TextBlock x:Name="province" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="28" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="80" Foreground="#FFF9F4F4"/>
+            <TextBlock x:Name="city" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Height="28" Text="TextBlock" VerticalAlignment="Top" Width="80" Foreground="#FFF5F1F1"/>
+        
+            <TextBlock x:Name="textBlock4" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Height="28" TextWrapping="Wrap" Text="城市：" VerticalAlignment="Center" Width="78" Foreground="#FFF3EEEE"/>
+            <TextBlock x:Name="textBlock3" Grid.Row="1" Grid.Column="1" Height="28" Text="省份："  Width="78" HorizontalAlignment="Center" Foreground="#FFF5EEEE"/>
+        </Grid>
     </Grid>
 </Page>
